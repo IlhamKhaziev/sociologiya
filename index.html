@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Политические системы, власть и суверенитет</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              950: '#060b19',
+              900: '#0b132b',
+              800: '#1c2541',
+              700: '#2a395c',
+            },
+            cyanGlow: '#48cae4',
+            tealGlow: '#5bc0be',
+            blueAccent: '#00b4d8',
+            purpleGlow: '#7209b7',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Montserrat', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b132b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a395c;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00b4d8;
+    }
+
+    /* Ambient Glow Background Animation */
+    .glow-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.25;
+      pointer-events: none;
+      animation: floatGlow 14s ease-in-out infinite alternate;
+    }
+    .glow-blob-1 {
+      top: 10%;
+      left: 15%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, #00b4d8 0%, #7209b7 100%);
+    }
+    .glow-blob-2 {
+      bottom: 10%;
+      right: 15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #48cae4 0%, #3a86ff 100%);
+      animation-delay: -7s;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, -30px) scale(1.1); }
+      100% { transform: translate(-30px, 40px) scale(0.95); }
+    }
+
+    /* Glassmorphism Classes */
+    .glass-panel {
+      background: rgba(28, 37, 65, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(72, 202, 228, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(0, 180, 216, 0.25);
+    }
+
+    .glass-pill {
+      background: rgba(72, 202, 228, 0.1);
+      border: 1px solid rgba(72, 202, 228, 0.25);
+      color: #48cae4;
+    }
+
+    /* Slide Transition System */
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.97) translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem 6rem 3rem;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      z-index: 10;
+    }
+
+    /* Staggered Animations inside active slide */
+    .slide.active .anim-1 { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+    .slide.active .anim-2 { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+    .slide.active .anim-3 { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+    .slide.active .anim-4 { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+    .slide.active .anim-5 { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Glowing Text Effects */
+    .text-glow {
+      text-shadow: 0 0 20px rgba(72, 202, 228, 0.4);
+    }
+    .text-glow-purple {
+      text-shadow: 0 0 20px rgba(114, 9, 183, 0.5);
+    }
+
+    /* Pulse animation for interactive indicators */
+    .pulse-ring {
+      animation: pulseGlow 2s infinite;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(0, 180, 216, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0); }
+    }
+  </style>
+</head>
+<body class="bg-navy-950 text-slate-100 font-sans h-screen w-screen overflow-hidden select-none relative">
+
+  <!-- Background Animated Blobs -->
+  <div class="glow-blob glow-blob-1"></div>
+  <div class="glow-blob glow-blob-2"></div>
+
+  <!-- Top Progress Bar -->
+  <div class="fixed top-0 left-0 w-full z-50 h-1.5 bg-navy-900/80 backdrop-blur-sm">
+    <div id="progressBar" class="h-full bg-gradient-to-r from-blueAccent via-cyanGlow to-tealGlow transition-all duration-500 ease-out w-1/10"></div>
+  </div>
+
+  <!-- Top Header Nav Bar -->
+  <header class="fixed top-2 left-0 right-0 z-40 px-6 py-3 flex items-center justify-between pointer-events-none">
+    <div class="flex items-center space-x-3 pointer-events-auto">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blueAccent to-cyanGlow flex items-center justify-center text-navy-950 font-black shadow-lg shadow-cyanGlow/20">
+        <i class="fa-solid fa-landmark text-lg"></i>
+      </div>
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-cyanGlow font-heading">Политология</span>
+        <h1 class="text-sm font-semibold text-slate-200">Политические системы & Власть</h1>
+      </div>
+    </div>
+
+    <!-- Top Action Buttons -->
+    <div class="flex items-center space-x-2 pointer-events-auto">
+      <button id="btnAutoPlay" onclick="toggleAutoplay()" title="Автозапуск слайдов" class="px-3 py-1.5 rounded-lg text-xs font-medium glass-panel hover:bg-white/10 text-slate-300 hover:text-cyanGlow transition flex items-center gap-2">
+        <i class="fa-solid fa-play text-cyanGlow" id="autoplayIcon"></i>
+        <span id="autoplayText" class="hidden sm:inline">Авто</span>
+      </button>
+      <button onclick="toggleGridModal()" title="Сетка слайдов (M)" class="px-3 py-1.5 rounded-lg text-xs font-medium glass-panel hover:bg-white/10 text-slate-300 hover:text-cyanGlow transition flex items-center gap-2">
+        <i class="fa-solid fa-grip-vertical"></i>
+        <span class="hidden sm:inline">Обзор</span>
+      </button>
+      <button onclick="toggleShortcutsModal()" title="Горячие клавиши (?)" class="px-3 py-1.5 rounded-lg text-xs font-medium glass-panel hover:bg-white/10 text-slate-300 hover:text-cyanGlow transition">
+        <i class="fa-solid fa-keyboard"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN SLIDES DECK CONTAINER ==================== -->
+  <main id="deckContainer" class="relative w-full h-full max-w-7xl mx-auto">
+
+    <!-- SLIDE 1: TITLE & OVERVIEW -->
+    <section class="slide active" id="slide-1">
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <div class="anim-1 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-pill text-xs font-semibold uppercase tracking-widest">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Учебная презентация по теории политики</span>
+        </div>
+        
+        <h1 class="anim-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading text-white leading-tight text-glow">
+          Политические системы, <br>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyanGlow via-blueAccent to-tealGlow">
+            власть и суверенитет
+          </span>
+        </h1>
+        
+        <p class="anim-3 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+          Теоретический базис политологии, ключевые категории власти, институциональная легитимность и компаративный анализ открытых и закрытых политических систем.
+        </p>
+
+        <!-- Module Cards Grid -->
+        <div class="anim-4 grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 text-left">
+          <div onclick="goToSlide(2)" class="glass-card p-5 rounded-2xl cursor-pointer group">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center mb-3 group-hover:scale-110 transition">
+              <i class="fa-solid fa-sitemap text-lg"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-sm mb-1 group-hover:text-cyanGlow transition">Модуль 1: Субъект & Объект</h3>
+            <p class="text-xs text-slate-400">Структура властных отношений, ключевые источники и ресурсы контроля.</p>
+          </div>
+
+          <div onclick="goToSlide(5)" class="glass-card p-5 rounded-2xl cursor-pointer group">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-3 group-hover:scale-110 transition">
+              <i class="fa-solid fa-shield-halved text-lg"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-sm mb-1 group-hover:text-purple-300 transition">Модуль 2: Суверенитет & Легитимность</h3>
+            <p class="text-xs text-slate-400">Внутренний и внешний суверенитет, классическая типология М. Вебера.</p>
+          </div>
+
+          <div onclick="goToSlide(7)" class="glass-card p-5 rounded-2xl cursor-pointer group">
+            <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center mb-3 group-hover:scale-110 transition">
+              <i class="fa-solid fa-globe text-lg"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-sm mb-1 group-hover:text-teal-300 transition">Модуль 3: Типы Систем</h3>
+            <p class="text-xs text-slate-400">Модель Истона, сравнение открытых и закрытых систем на примерах стран.</p>
+          </div>
+        </div>
+
+        <div class="anim-5 pt-4">
+          <button onclick="nextSlide()" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-blueAccent to-cyanGlow text-navy-950 font-bold font-heading hover:shadow-lg hover:shadow-cyanGlow/30 hover:scale-105 transition transform active:scale-95 inline-flex items-center gap-3">
+            <span>Начать просмотр</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: SUBJECTS & OBJECTS OF POWER -->
+    <section class="slide" id="slide-2">
+      <div class="space-y-6">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyanGlow font-heading">Модуль 1 • Теория власти</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Субъекты и Объекты Власти</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 02/10</span>
+        </div>
+
+        <p class="anim-2 text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
+          Политическая власть — это асимметричное двухстороннее отношение между теми, кто отдаёт приказания, и теми, кто их исполняет.
+        </p>
+
+        <!-- Interactive Directional Flow -->
+        <div class="anim-3 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+          
+          <!-- Subject Card -->
+          <div class="glass-card p-5 rounded-2xl border-l-4 border-l-cyanGlow space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-cyanGlow font-heading">Активное начало</span>
+              <i class="fa-solid fa-user-gear text-cyanGlow text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white font-heading">Субъекты Власти</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Носители власти, имеющие волю, ресурсы и институциональное право формулировать предписания.
+            </p>
+            <ul class="space-y-1.5 text-xs text-slate-200">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow text-[10px]"></i> Государство и его органы</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow text-[10px]"></i> Политическая элита & Лидеры</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow text-[10px]"></i> Партии и лоббистские группы</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow text-[10px]"></i> Гражданский народ (на выборах)</li>
+            </ul>
+          </div>
+
+          <!-- Flow Arrow & Mechanism -->
+          <div class="flex flex-col items-center justify-center p-4 text-center space-y-3">
+            <div class="w-full h-0.5 bg-gradient-to-r from-cyanGlow via-blueAccent to-tealGlow relative hidden md:block">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-navy-900 border border-blueAccent px-3 py-0.5 rounded-full text-[10px] text-cyanGlow font-mono uppercase tracking-wider">
+                Властный импульс
+              </div>
+            </div>
+            <div class="glass-card p-4 rounded-xl w-full space-y-2 border border-blueAccent/30">
+              <i class="fa-solid fa-bolt text-amber-400 text-2xl animate-pulse"></i>
+              <h4 class="text-xs font-bold text-slate-100 font-heading">Механизм Властвования</h4>
+              <p class="text-[11px] text-slate-400">Нормы, законы, приказы, идеология, авторитет и санкции</p>
+            </div>
+            <div class="text-cyanGlow font-bold text-xl md:hidden">
+              <i class="fa-solid fa-arrow-down"></i>
+            </div>
+          </div>
+
+          <!-- Object Card -->
+          <div class="glass-card p-5 rounded-2xl border-l-4 border-l-purple-500 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-purple-400 font-heading">Подчиняющаяся сторона</span>
+              <i class="fa-solid fa-users text-purple-400 text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white font-heading">Объекты Власти</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Индивиды и общности, принимающие властные импульсы и исполняющие требования субъекта.
+            </p>
+            <ul class="space-y-1.5 text-xs text-slate-200">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-purple-400 text-[10px]"></i> Индивидуальные граждане</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-purple-400 text-[10px]"></i> Социальные страты и классы</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-purple-400 text-[10px]"></i> Общество в целом</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-angle-right text-purple-400 text-[10px]"></i> Подчиненные институты</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Dynamic Note Box -->
+        <div class="anim-4 glass-panel p-4 rounded-xl flex items-start gap-3 border-l-4 border-l-blueAccent">
+          <i class="fa-solid fa-circle-info text-blueAccent text-lg mt-0.5"></i>
+          <p class="text-xs text-slate-300">
+            <strong class="text-white font-semibold">Важный принцип политологии:</strong> В демократических системах объект власти (народ) одновременно выступает первичным верховным субъектом власти через институты прямого волеизъявления и выборов.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: SOURCES OF POWER -->
+    <section class="slide" id="slide-3">
+      <div class="space-y-5">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyanGlow font-heading">Модуль 1 • Теория власти</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Источники Власти</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 03/10</span>
+        </div>
+
+        <p class="anim-2 text-slate-300 text-sm">
+          Источники власти — это фундаментальные основания, благодаря которым субъект получает возможность подчинять объект своей воле.
+        </p>
+
+        <!-- 6 Sources Grid -->
+        <div class="anim-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <div class="glass-card p-4 rounded-xl space-y-2 border-t-2 border-t-blue-400">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-base">1. Право и Закон</h3>
+            <p class="text-xs text-slate-300">Легитимная нормативно-юридическая база. Полномочия, прописанные в конституциях и кодексах.</p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-2 border-t-2 border-t-red-400">
+            <div class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-hand-fist"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-base">2. Сила и Принуждение</h3>
+            <p class="text-xs text-slate-300">Монополия на легальное физическое насилие (армия, полиция, специальная система наказаний).</p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-2 border-t-2 border-t-amber-400">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-base">3. Авторитет</h3>
+            <p class="text-xs text-slate-300">Добровольное признание окружающими компетентности, опыта, мудрости и морального превосходства.</p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-2 border-t-2 border-t-purple-400">
+            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-base">4. Харизма</h3>
+            <p class="text-xs text-slate-300">Исключительные личные качества и дар лидера, вызывающие эмоциональную веру и фанатичное преклонение.</p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-2 border-t-2 border-t-teal-400">
+            <div class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-base">5. Знание и Инфо</h3>
+            <p class="text-xs text-slate-300">Экспертные данные, удержание технологической тайны и контроль над каналами коммуникации.</p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-2 border-t-2 border-t-emerald-400">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-coins"></i>
+            </div>
+            <h3 class="font-heading font-bold text-slate-100 text-base">6. Богатство и Капитал</h3>
+            <p class="text-xs text-slate-300">Контроль над ключевыми материально-финансовыми активами, сырьем и бюджетными потоками.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: RESOURCES OF POWER -->
+    <section class="slide" id="slide-4">
+      <div class="space-y-6">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyanGlow font-heading">Модуль 1 • Инструменты господства</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Ресурсы Власти</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 04/10</span>
+        </div>
+
+        <p class="anim-2 text-slate-300 text-sm">
+          Ресурсы власти — это средства, потенциал и институты, которые субъект может применить для воздействия на объект.
+        </p>
+
+        <!-- Category Horizontal Tabs / Grid -->
+        <div class="anim-3 grid grid-cols-1 md:grid-cols-5 gap-3">
+          
+          <div class="glass-card p-4 rounded-xl flex flex-col justify-between hover:border-cyanGlow">
+            <div class="space-y-2">
+              <div class="text-cyanGlow text-2xl"><i class="fa-solid fa-chart-line"></i></div>
+              <h3 class="font-heading font-bold text-slate-100 text-sm">Экономические</h3>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-3 leading-relaxed">
+              Деньги, природные богатства, производство, земли, финансовая система.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl flex flex-col justify-between hover:border-blueAccent">
+            <div class="space-y-2">
+              <div class="text-blueAccent text-2xl"><i class="fa-solid fa-id-card"></i></div>
+              <h3 class="font-heading font-bold text-slate-100 text-sm">Социальные</h3>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-3 leading-relaxed">
+              Социальный статус, должности, социальные лифты, льготы, медобслуживание.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl flex flex-col justify-between hover:border-red-400">
+            <div class="space-y-2">
+              <div class="text-red-400 text-2xl"><i class="fa-solid fa-shield"></i></div>
+              <h3 class="font-heading font-bold text-slate-100 text-sm">Силовые</h3>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-3 leading-relaxed">
+              Вооруженные силы, полиция, спецслужбы, тюремный аппарат, спецтехника.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl flex flex-col justify-between hover:border-purple-400">
+            <div class="space-y-2">
+              <div class="text-purple-400 text-2xl"><i class="fa-solid fa-tower-broadcast"></i></div>
+              <h3 class="font-heading font-bold text-slate-100 text-sm">Информационные</h3>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-3 leading-relaxed">
+              Телевидение, интернет-платформы, газеты, реестры персональных данных.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl flex flex-col justify-between hover:border-amber-400">
+            <div class="space-y-2">
+              <div class="text-amber-400 text-2xl"><i class="fa-solid fa-book"></i></div>
+              <h3 class="font-heading font-bold text-slate-100 text-sm">Идеологические</h3>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-3 leading-relaxed">
+              Ценности, религиозные догмы, государственные мифы, научные концепции.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="anim-4 glass-panel p-4 rounded-xl flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-cyanGlow/20 text-cyanGlow flex items-center justify-center font-bold">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="text-xs text-slate-300">
+              Эффективность власти зависит не от количества одного ресурса, а от умения их <strong>комбинировать</strong>.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: STATE SOVEREIGNTY -->
+    <section class="slide" id="slide-5">
+      <div class="space-y-6">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyanGlow font-heading">Модуль 2 • Государственность</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Суверенитет Государства</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 05/10</span>
+        </div>
+
+        <div class="anim-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Inner Sovereignty -->
+          <div class="glass-card p-6 rounded-2xl border-t-4 border-t-cyanGlow space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyanGlow/20 text-cyanGlow flex items-center justify-center text-lg">
+                <i class="fa-solid fa-house-lock"></i>
+              </div>
+              <h3 class="text-xl font-bold font-heading text-white">Внутренний Суверенитет</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Верховенство государственной власти внутри страны по отношению ко всем гражданам, политическим партиям и общественным организациям.
+            </p>
+            <div class="space-y-2 pt-2">
+              <div class="bg-navy-900/60 p-2.5 rounded-lg text-xs text-slate-200 border border-slate-700/50 flex items-center gap-2">
+                <i class="fa-solid fa-check text-cyanGlow"></i> Монополия на законотворческую деятельность
+              </div>
+              <div class="bg-navy-900/60 p-2.5 rounded-lg text-xs text-slate-200 border border-slate-700/50 flex items-center gap-2">
+                <i class="fa-solid fa-check text-cyanGlow"></i> Исключительное право на налогообложение
+              </div>
+              <div class="bg-navy-900/60 p-2.5 rounded-lg text-xs text-slate-200 border border-slate-700/50 flex items-center gap-2">
+                <i class="fa-solid fa-check text-cyanGlow"></i> Юрисдикция суда над всей территорией
+              </div>
+            </div>
+          </div>
+
+          <!-- Outer Sovereignty -->
+          <div class="glass-card p-6 rounded-2xl border-t-4 border-t-purple-500 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-earth-americas"></i>
+              </div>
+              <h3 class="text-xl font-bold font-heading text-white">Внешний Суверенитет</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Независимость и равноправие государства на международной арене. Недопустимость внешнего вмешательства во внутренние дела.
+            </p>
+            <div class="space-y-2 pt-2">
+              <div class="bg-navy-900/60 p-2.5 rounded-lg text-xs text-slate-200 border border-slate-700/50 flex items-center gap-2">
+                <i class="fa-solid fa-check text-purple-400"></i> Право заключать международные договоры
+              </div>
+              <div class="bg-navy-900/60 p-2.5 rounded-lg text-xs text-slate-200 border border-slate-700/50 flex items-center gap-2">
+                <i class="fa-solid fa-check text-purple-400"></i> Дипломатическое признание и членство в ООН
+              </div>
+              <div class="bg-navy-900/60 p-2.5 rounded-lg text-xs text-slate-200 border border-slate-700/50 flex items-center gap-2">
+                <i class="fa-solid fa-check text-purple-400"></i> Защита территориальной целостности
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Essential Properties Pill -->
+        <div class="anim-3 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+          <div class="glass-panel p-3 rounded-xl">
+            <span class="block text-xs font-bold text-cyanGlow font-heading">Единство</span>
+            <span class="text-[11px] text-slate-400">Нельзя разделить власть между центрами</span>
+          </div>
+          <div class="glass-panel p-3 rounded-xl">
+            <span class="block text-xs font-bold text-cyanGlow font-heading">Неотчуждаемость</span>
+            <span class="text-[11px] text-slate-400">Суверенитет нельзя передать другому государству</span>
+          </div>
+          <div class="glass-panel p-3 rounded-xl">
+            <span class="block text-xs font-bold text-cyanGlow font-heading">Верховенство</span>
+            <span class="text-[11px] text-slate-400">Нет власти выше государственной внутри страны</span>
+          </div>
+          <div class="glass-panel p-3 rounded-xl">
+            <span class="block text-xs font-bold text-cyanGlow font-heading">Всеобщность</span>
+            <span class="text-[11px] text-slate-400">Обязательность решений для всех субъектов</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: LEGITIMACY OF POWER (MAX WEBER) -->
+    <section class="slide" id="slide-6">
+      <div class="space-y-5">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyanGlow font-heading">Модуль 2 • Согласие общества</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Типы Легитимности Власти (по М. Веберу)</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 06/10</span>
+        </div>
+
+        <p class="anim-2 text-slate-300 text-xs sm:text-sm">
+          <strong>Легитимность</strong> — добровольное признание властных полномочий населением, основанное на убежденности в законности и справедливости режима.
+        </p>
+
+        <!-- Weber's 3 Types Cards -->
+        <div class="anim-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          <!-- Traditional -->
+          <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-amber-400">
+            <div class="space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center font-bold">
+                <i class="fa-solid fa-crown text-xl"></i>
+              </div>
+              <h3 class="text-lg font-bold font-heading text-white">1. Традиционная</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Основана на вере в священность древних обычаев, традиций и непрерывность династической преемственности.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-700/50 space-y-1">
+              <span class="text-[10px] uppercase font-bold text-amber-400">Примеры:</span>
+              <p class="text-xs text-slate-200">Абсолютные монархии (Саудовская Аравия, Оман, традиции в Великобритании).</p>
+            </div>
+          </div>
+
+          <!-- Charismatic -->
+          <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-purple-500">
+            <div class="space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+                <i class="fa-solid fa-fire text-xl"></i>
+              </div>
+              <h3 class="text-lg font-bold font-heading text-white">2. Харизматическая</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Держится на фанатичной вере населения в уникальные сверхчеловеческие способности лидера, вождя или пророка.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-700/50 space-y-1">
+              <span class="text-[10px] uppercase font-bold text-purple-400">Примеры:</span>
+              <p class="text-xs text-slate-200">Наполеон, Махатма Ганди, Фидель Кастро, революционные вожди.</p>
+            </div>
+          </div>
+
+          <!-- Rational-Legal -->
+          <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-t-4 border-t-cyanGlow">
+            <div class="space-y-3">
+              <div class="w-10 h-10 rounded-xl bg-cyanGlow/20 text-cyanGlow flex items-center justify-center font-bold">
+                <i class="fa-solid fa-check-to-slot text-xl"></i>
+              </div>
+              <h3 class="text-lg font-bold font-heading text-white">3. Рационально-Легальная</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Основана на доверии граждан к демократическим процедурам, конституции, законности и честным выборам.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-700/50 space-y-1">
+              <span class="text-[10px] uppercase font-bold text-cyanGlow">Примеры:</span>
+              <p class="text-xs text-slate-200">Современные правовые государства и демократические республики.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="anim-4 text-center">
+          <span class="text-xs text-slate-400 italic">
+            * Примечание: В реальной политической практике идеальные типы переплетаются (например, харизматичный лидер в рамках рационально-легальной системы).
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: POLITICAL SYSTEMS (EASTON MODEL) -->
+    <section class="slide" id="slide-7">
+      <div class="space-y-6">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyanGlow font-heading">Модуль 3 • Моделирование</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Политическая Система (Модель Д. Истона)</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 07/10</span>
+        </div>
+
+        <p class="anim-2 text-slate-300 text-xs sm:text-sm">
+          Политическая система — это совокупность институтов, взаимодействующих с внешней средой через петлю обратной связи (Input - Processing - Output - Feedback).
+        </p>
+
+        <!-- Easton Diagram Graphic -->
+        <div class="anim-3 glass-card p-6 rounded-2xl relative overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+            
+            <!-- INPUT -->
+            <div class="bg-blue-950/60 p-4 rounded-xl border border-blue-500/30 space-y-2">
+              <span class="text-[10px] uppercase tracking-wider font-bold text-cyanGlow">1. Вход (Input)</span>
+              <h3 class="font-heading font-bold text-white text-base">Импульсы общества</h3>
+              <ul class="text-xs text-slate-300 space-y-1">
+                <li>• <strong>Требования:</strong> реформы, льготы, защита</li>
+                <li>• <strong>Поддержка:</strong> налоги, лояльность, голосование</li>
+              </ul>
+            </div>
+
+            <!-- CONVERSION / PROCESSING SYSTEM -->
+            <div class="glass-panel p-5 rounded-xl border-2 border-cyanGlow text-center space-y-3 relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyanGlow text-navy-950 text-[10px] font-bold px-3 py-0.5 rounded-full uppercase">
+                Центр Конверсии
+              </div>
+              <i class="fa-solid fa-gears text-3xl text-cyanGlow animate-spin" style="animation-duration:12s;"></i>
+              <h3 class="font-heading font-bold text-white text-base">Властные Институты</h3>
+              <p class="text-[11px] text-slate-300">Парламент, Правительство, Президент, Суды (Принятие решений)</p>
+            </div>
+
+            <!-- OUTPUT -->
+            <div class="bg-purple-950/60 p-4 rounded-xl border border-purple-500/30 space-y-2">
+              <span class="text-[10px] uppercase tracking-wider font-bold text-purple-400">2. Выход (Output)</span>
+              <h3 class="font-heading font-bold text-white text-base">Решения и Законы</h3>
+              <ul class="text-xs text-slate-300 space-y-1">
+                <li>• Указы, законы, бюджет</li>
+                <li>• Политические действия и программы</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Feedback Loop Arrow -->
+          <div class="mt-4 pt-3 border-t border-slate-700/50 flex items-center justify-center gap-3 text-xs text-slate-300">
+            <i class="fa-solid fa-arrow-left text-cyanGlow"></i>
+            <span class="font-mono text-cyanGlow uppercase font-bold text-[11px]">Петля Обратной Связи (Feedback Loop)</span>
+            <span class="text-slate-400">Реакция общества изменяет следующие входы в систему</span>
+          </div>
+        </div>
+
+        <div class="anim-4 grid grid-cols-2 gap-4">
+          <div class="glass-panel p-3 rounded-xl border-l-4 border-l-teal-400">
+            <h4 class="font-bold text-xs text-teal-300 font-heading">Открытая Система</h4>
+            <p class="text-[11px] text-slate-300">Свободно воспринимает внешние сигналы, гибка к изменениям среды.</p>
+          </div>
+          <div class="glass-panel p-3 rounded-xl border-l-4 border-l-red-400">
+            <h4 class="font-bold text-xs text-red-300 font-heading">Закрытая Система</h4>
+            <p class="text-[11px] text-slate-300">Игнорирует внешние сигналы, цензурирует входы, склонна к накоплению ошибок.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: OPEN POLITICAL SYSTEMS & EXAMPLES -->
+    <section class="slide" id="slide-8">
+      <div class="space-y-5">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-teal-400 font-heading">Модуль 3 • Компаративистика</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Открытые Политические Системы</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 08/10</span>
+        </div>
+
+        <p class="anim-2 text-slate-300 text-xs sm:text-sm">
+          Характеризуются прозрачностью, активным информационным обменом с внешним миром, конкурентной политикой и правовой защитой личности.
+        </p>
+
+        <!-- Country Case Studies Grid -->
+        <div class="anim-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <div class="glass-card p-4 rounded-xl space-y-3 border-t-2 border-t-blue-400">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🇺🇸</span>
+              <h3 class="font-heading font-bold text-white text-base">США</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Плюралистическая модель с разделением властей, развитым лоббизмом, конкурентными двухпартийными выборами и защитой 1-й поправки.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-3 border-t-2 border-t-yellow-400">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🇩🇪</span>
+              <h3 class="font-heading font-bold text-white text-base">Германия</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Консенсусная коалиционная демократия, федерализм, защита социального государства и высокая интеграция в институты ЕС.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-3 border-t-2 border-t-red-400">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🇬🇧</span>
+              <h3 class="font-heading font-bold text-white text-base">Великобритания</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Парламентская модель Вестминстера, сильные традиции верховенства права, прецедентная юридическая система и гражданская активность.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl space-y-3 border-t-2 border-t-rose-400">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🇯🇵</span>
+              <h3 class="font-heading font-bold text-white text-base">Япония</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Восточно-азиатская модель открытой демократии, сочетающая технологический прогресс, интеграцию в мировые рынки и стабильные институты.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="anim-4 glass-panel p-4 rounded-xl border-l-4 border-l-teal-400 space-y-1">
+          <h4 class="text-xs font-bold font-heading text-teal-300 uppercase">Ключевые плюсы открытости:</h4>
+          <p class="text-xs text-slate-300">
+            Высокая инновационность, быстрая исправляемость ошибок власти через выборы, устойчивость к внутренним кризисам благодаря гибким институтам.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: CLOSED POLITICAL SYSTEMS & EXAMPLES -->
+    <section class="slide" id="slide-9">
+      <div class="space-y-5">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-red-400 font-heading">Модуль 3 • Компаративистика</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Закрытые Политические Системы</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 09/10</span>
+        </div>
+
+        <p class="anim-2 text-slate-300 text-xs sm:text-sm">
+          Характеризуются изоляционизмом, жесткой цензурой, подавлением инакомыслия, автаркией и абсолютным контролем государства над обществом.
+        </p>
+
+        <!-- Case Studies -->
+        <div class="anim-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          <div class="glass-card p-5 rounded-2xl border-t-4 border-t-red-600 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🇰🇵</span>
+              <h3 class="font-heading font-bold text-white text-base">КНДР (Северная Корея)</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Классическая закрытая тоталитарная система. Идеология «Чучхе» (опора на свои силы), абсолютная монополия партии, полная информационная и физическая изоляция от мира.
+            </p>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl border-t-4 border-t-amber-600 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🏛️</span>
+              <h3 class="font-heading font-bold text-white text-base">СССР (Исторический период)</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Период сталинизма и жесткого соцреализма: «железный занавес», плановая автаркичная экономика, цензура СМИ и выездные ограничения для граждан.
+            </p>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl border-t-4 border-t-orange-500 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🇹🇲</span>
+              <h3 class="font-heading font-bold text-white text-base">Туркменистан</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Современный закрытый режим с ограниченным интернетом, монополией на СМИ, культом личности и сильным контролем миграции граждан.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="anim-4 glass-panel p-4 rounded-xl border-l-4 border-l-red-500 space-y-1">
+          <h4 class="text-xs font-bold font-heading text-red-400 uppercase">Уязвимости закрытых систем:</h4>
+          <p class="text-xs text-slate-300">
+            Информационная слепота элиты, неспособность к системным инновациям, накопительный эффект системного невольничества и риски внезапного коллапса при кризисе.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: COMPARISON MATRIX & SUMMARY -->
+    <section class="slide" id="slide-10">
+      <div class="space-y-5">
+        <div class="anim-1 flex items-center justify-between border-b border-slate-700/50 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-cyanGlow font-heading">Заключение • Итоги</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-heading text-white">Сравнительный Анализ Систем</h2>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono">Слайд 10/10</span>
+        </div>
+
+        <!-- Matrix Table -->
+        <div class="anim-2 overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300 border-collapse">
+            <thead>
+              <tr class="border-b border-slate-700 text-slate-100 font-heading uppercase text-[11px] bg-navy-900/60">
+                <th class="p-3">Критерий сравнения</th>
+                <th class="p-3 text-teal-400">Открытая политсистема</th>
+                <th class="p-3 text-red-400">Закрытая политсистема</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              <tr>
+                <td class="p-3 font-semibold text-slate-200">Коммуникация с миром</td>
+                <td class="p-3">Свободный информационный и экономический обмен</td>
+                <td class="p-3">Жесткая цензура, «железный занавес», изоляция</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-200">Права человека & Плюрализм</td>
+                <td class="p-3">Гарантии свобод, многопартийность, оппозиция</td>
+                <td class="p-3">Монополия одной идеологии, репрессии инакомыслия</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-200">Обратная связь (Feedback)</td>
+                <td class="p-3">Высокая: выборы, протесты, свобода прессы</td>
+                <td class="p-3">Низкая: искажение информации, имитация поддержки</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-200">Экономическая модель</td>
+                <td class="p-3">Открытый рынок, глобализация, конкуренция</td>
+                <td class="p-3">Автаркия, строгий плановый/госконтроль</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-slate-200">Адаптивность к вызовам</td>
+                <td class="p-3">Гибкая реформация без разрушения государства</td>
+                <td class="p-3">Жесткость структуры, риски ревностного накопления кризисов</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Final Takeaway Card -->
+        <div class="anim-3 glass-card p-4 rounded-xl border border-cyanGlow/40 flex items-center justify-between gap-4">
+          <div class="space-y-1">
+            <h3 class="font-heading font-bold text-white text-sm text-glow">Главный вывод политологии</h3>
+            <p class="text-xs text-slate-300">
+              В XXI веке открытые системы демонстрируют более высокую глобальную конкурентоспособность благодаря динамической адаптивности и инвестициям в человеческий капитал.
+            </p>
+          </div>
+          <button onclick="goToSlide(1)" class="px-4 py-2 rounded-lg bg-cyanGlow/20 text-cyanGlow hover:bg-cyanGlow/30 transition text-xs font-bold font-heading whitespace-nowrap">
+            <i class="fa-solid fa-rotate-left mr-1"></i> В начало
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== BOTTOM FLOATING CONTROL PANEL ==================== -->
+  <footer class="fixed bottom-3 left-0 right-0 z-40 px-6 pointer-events-none">
+    <div class="max-w-xl mx-auto glass-panel rounded-2xl px-5 py-3 flex items-center justify-between pointer-events-auto shadow-2xl">
+      
+      <!-- Prev Button -->
+      <button onclick="prevSlide()" class="p-2 rounded-xl text-slate-300 hover:text-cyanGlow hover:bg-white/5 transition active:scale-95 flex items-center gap-2">
+        <i class="fa-solid fa-chevron-left text-sm"></i>
+        <span class="text-xs font-semibold hidden sm:inline">Назад</span>
+      </button>
+
+      <!-- Slide Counter Indicator & Modal Trigger -->
+      <div onclick="toggleGridModal()" class="cursor-pointer px-3 py-1 rounded-lg bg-navy-900/80 border border-slate-700/60 hover:border-cyanGlow transition flex items-center gap-2 text-xs font-mono">
+        <i class="fa-solid fa-layer-group text-cyanGlow"></i>
+        <span id="slideCounter" class="text-white font-bold">1 / 10</span>
+      </div>
+
+      <!-- Next Button -->
+      <button onclick="nextSlide()" class="p-2 rounded-xl text-slate-300 hover:text-cyanGlow hover:bg-white/5 transition active:scale-95 flex items-center gap-2">
+        <span class="text-xs font-semibold hidden sm:inline">Далее</span>
+        <i class="fa-solid fa-chevron-right text-sm"></i>
+      </button>
+
+    </div>
+  </footer>
+
+  <!-- ==================== OVERVIEW / SLIDE INDEX GRID MODAL ==================== -->
+  <div id="gridModal" class="fixed inset-0 z-50 bg-navy-950/90 backdrop-blur-xl hidden flex-col justify-center items-center p-6 transition-all duration-300">
+    <div class="max-w-4xl w-full space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <h2 class="text-xl font-bold font-heading text-white flex items-center gap-2">
+          <i class="fa-solid fa-grip text-cyanGlow"></i>
+          <span>Оглавление и переход к слайду</span>
+        </h2>
+        <button onclick="toggleGridModal()" class="text-slate-400 hover:text-white p-2">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 max-h-[65vh] overflow-y-auto p-1" id="slidesGrid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== KEYBOARD SHORTCUTS MODAL ==================== -->
+  <div id="shortcutsModal" class="fixed inset-0 z-50 bg-navy-950/90 backdrop-blur-xl hidden flex-col justify-center items-center p-6">
+    <div class="max-w-md w-full glass-panel p-6 rounded-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-heading font-bold text-white text-lg">Горячие клавиши</h3>
+        <button onclick="toggleShortcutsModal()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between p-2 rounded bg-navy-900"><span class="text-cyanGlow font-mono">← / →</span> <span>Следующий / Предыдущий слайд</span></div>
+        <div class="flex justify-between p-2 rounded bg-navy-900"><span class="text-cyanGlow font-mono">Пробел</span> <span>Следующий слайд</span></div>
+        <div class="flex justify-between p-2 rounded bg-navy-900"><span class="text-cyanGlow font-mono">M</span> <span>Открыть сетку слайдов</span></div>
+        <div class="flex justify-between p-2 rounded bg-navy-900"><span class="text-cyanGlow font-mono">F</span> <span>Полноэкранный режим</span></div>
+        <div class="flex justify-between p-2 rounded bg-navy-900"><span class="text-cyanGlow font-mono">Esc</span> <span>Закрыть окна</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+    let autoplayInterval = null;
+    let isAutoplay = false;
+
+    const slideTitles = [
+      "Титульный слайд",
+      "Субъекты и Объекты власти",
+      "Источники власти",
+      "Ресурсы власти",
+      "Суверенитет государства",
+      "Легитимность власти (Вебер)",
+      "Политическая система (Истон)",
+      "Открытые политсистемы",
+      "Закрытые политсистемы",
+      "Сравнительный итог"
+    ];
+
+    // Initialize Presentation
+    document.addEventListener('DOMContentLoaded', () => {
+      updateDeckUI();
+      buildGridItems();
+      setupTouchSwipe();
+    });
+
+    function updateDeckUI() {
+      // Update Slide visibility
+      for (let i = 1; i <= totalSlides; i++) {
+        const slideEl = document.getElementById(`slide-${i}`);
+        if (slideEl) {
+          if (i === currentSlide) {
+            slideEl.classList.add('active');
+          } else {
+            slideEl.classList.remove('active');
+          }
+        }
+      }
+
+      // Update Progress Bar
+      const progressPercent = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+      // Update Counter
+      document.getElementById('slideCounter').innerText = `${currentSlide} / ${totalSlides}`;
+    }
+
+    function goToSlide(n) {
+      if (n >= 1 && n <= totalSlides) {
+        currentSlide = n;
+        updateDeckUI();
+        closeModals();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+      } else {
+        currentSlide = 1; // loop back
+      }
+      updateDeckUI();
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateDeckUI();
+      }
+    }
+
+    // Modal Toggles
+    function toggleGridModal() {
+      const modal = document.getElementById('gridModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    function toggleShortcutsModal() {
+      const modal = document.getElementById('shortcutsModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    function closeModals() {
+      document.getElementById('gridModal').classList.add('hidden');
+      document.getElementById('gridModal').classList.remove('flex');
+      document.getElementById('shortcutsModal').classList.add('hidden');
+      document.getElementById('shortcutsModal').classList.remove('flex');
+    }
+
+    // Build Slide Index Grid
+    function buildGridItems() {
+      const container = document.getElementById('slidesGrid');
+      container.innerHTML = '';
+      for (let i = 1; i <= totalSlides; i++) {
+        const btn = document.createElement('button');
+        btn.onclick = () => goToSlide(i);
+        btn.className = `p-3 rounded-xl border text-left transition space-y-1 ${
+          i === currentSlide
+            ? 'bg-cyanGlow/20 border-cyanGlow text-white'
+            : 'glass-card border-slate-700/60 text-slate-300 hover:border-slate-500'
+        }`;
+        btn.innerHTML = `
+          <div class="text-[10px] font-mono font-bold text-cyanGlow">0${i}</div>
+          <div class="text-xs font-bold font-heading line-clamp-2">${slideTitles[i-1]}</div>
+        `;
+        container.appendChild(btn);
+      }
+    }
+
+    // Autoplay Functionality
+    function toggleAutoplay() {
+      isAutoplay = !isAutoplay;
+      const icon = document.getElementById('autoplayIcon');
+      const text = document.getElementById('autoplayText');
+
+      if (isAutoplay) {
+        icon.className = "fa-solid fa-pause text-amber-400";
+        text.innerText = "Пауза";
+        autoplayInterval = setInterval(() => {
+          nextSlide();
+        }, 6000);
+      } else {
+        icon.className = "fa-solid fa-play text-cyanGlow";
+        text.innerText = "Авто";
+        clearInterval(autoplayInterval);
+      }
+    }
+
+    // Keyboard Shortcuts Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'Home') {
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides);
+      } else if (e.key.toLowerCase() === 'm') {
+        toggleGridModal();
+      } else if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      } else if (e.key === 'Escape') {
+        closeModals();
+      }
+    });
+
+    // Touch Swipe Support
+    function setupTouchSwipe() {
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+
+      document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
+
+      function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+          nextSlide(); // Swipe Left
+        }
+        if (touchEndX > touchStartX + 50) {
+          prevSlide(); // Swipe Right
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
